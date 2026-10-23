@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Entrar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- O canvas é a "tela de desenho" do fundo animado -->
+  <canvas id="fundo"></canvas>
+
+  <main class="cartao">
+    <!-- TELA 1: formulário de login -->
+    <section id="telaLogin">
+      <h1>Que bom te ver de novo</h1>
+      <p class="sub">Entre para continuar de onde parou.</p>
+
+      <form id="formulario" novalidate>
+        <label for="email">E-mail</label>
+        <input id="email" type="email" autocomplete="email" placeholder="voce@email.com">
+        <p class="erro" id="erroEmail"></p>
+
+        <label for="senha">Senha</label>
+        <div class="campo-senha">
+          <input id="senha" type="password" autocomplete="current-password" placeholder="Mínimo de 6 caracteres">
+          <button type="button" id="verSenha" class="link">Mostrar</button>
+        </div>
+        <p class="erro" id="erroSenha"></p>
+
+        <label class="lembrar"><input type="checkbox" id="lembrar"> Lembrar meu e-mail</label>
+
+        <button type="submit" id="botao"><span>Entrar</span><i class="spinner"></i></button>
+        <p class="dica">Para testar, use <b>teste@email.com</b> e <b>senha123</b></p>
+      </form>
+    </section>
+
+    <!-- TELA 2: aparece depois do login certo -->
+    <section id="telaSucesso" hidden>
+      <div class="check">✓</div>
+      <h1>Login feito!</h1>
+      <p class="sub" id="boasVindas"></p>
+      <button type="button" id="sair">Sair</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

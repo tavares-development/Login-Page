@@ -1,0 +1,131 @@
+/* ---------- Variáveis: as cores ficam num lugar só ---------- */
+:root {
+  --fundo: #101436;
+  --cartao: rgba(255, 255, 255, 0.07);
+  --borda: rgba(201, 199, 255, 0.22);
+  --texto: #f5f3ff;
+  --suave: #b9b6e8;
+  --destaque: #ff5d73;
+  --ok: #5eead4;
+}
+
+* { box-sizing: border-box; margin: 0; }
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: "Sora", system-ui, sans-serif;
+}
+
+/* O canvas fica atrás de tudo, ocupando a tela inteira */
+#fundo { position: fixed; inset: 0; z-index: 0; }
+
+/* ---------- O cartão de vidro ---------- */
+.cartao {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 400px);
+  padding: 40px 32px;
+  background: var(--cartao);
+  border: 1px solid var(--borda);
+  border-radius: 24px;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  animation: entrada 0.9s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+@keyframes entrada {
+  from { opacity: 0; transform: translateY(24px) scale(.97); }
+}
+
+h1 { font-size: 1.7rem; font-weight: 800; line-height: 1.2; }
+.sub { margin: 8px 0 28px; color: var(--suave); font-size: .95rem; }
+
+/* ---------- Campos ---------- */
+label { display: block; margin-bottom: 6px; font-size: .85rem; color: var(--suave); }
+
+input[type="email"], input[type="password"], input[type="text"] {
+  width: 100%;
+  padding: 14px 16px;
+  font: inherit;
+  color: var(--texto);
+  background: rgba(16, 20, 54, 0.6);
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+input::placeholder { color: #7f7cb3; }
+input:focus-visible { border-color: var(--ok); box-shadow: 0 0 0 3px rgba(94, 234, 212, .25); }
+input.invalido { border-color: var(--destaque); }
+
+.campo-senha { position: relative; }
+.campo-senha input { padding-right: 84px; }
+
+.link {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  padding: 8px 10px; font: inherit; font-size: .8rem;
+  color: var(--ok); background: none; border: 0; cursor: pointer;
+}
+
+/* Espaço reservado para a mensagem de erro (não "pula" a tela) */
+.erro { min-height: 20px; margin: 6px 0 8px; font-size: .8rem; color: var(--destaque); }
+
+.lembrar { display: flex; align-items: center; gap: 8px; margin: 4px 0 22px; cursor: pointer; }
+.lembrar input { accent-color: var(--ok); width: 16px; height: 16px; }
+
+/* ---------- Botões ---------- */
+button[type="submit"], #sair {
+  position: relative;
+  width: 100%;
+  padding: 15px;
+  font: inherit; font-weight: 600;
+  color: #fff;
+  background: var(--destaque);
+  border: 0; border-radius: 12px; cursor: pointer;
+  transition: transform .15s, filter .2s;
+}
+button[type="submit"]:hover, #sair:hover { filter: brightness(1.1); transform: translateY(-2px); }
+button:focus-visible { outline: 3px solid var(--ok); outline-offset: 3px; }
+button:disabled { cursor: wait; opacity: .85; transform: none; }
+
+/* Bolinha girando enquanto "carrega" */
+.spinner {
+  display: none; width: 18px; height: 18px; margin: 0 auto;
+  border: 3px solid rgba(255, 255, 255, .35); border-top-color: #fff;
+  border-radius: 50%; animation: gira .7s linear infinite;
+}
+button.carregando span { display: none; }
+button.carregando .spinner { display: block; }
+@keyframes gira { to { transform: rotate(360deg); } }
+
+.dica { margin-top: 18px; text-align: center; font-size: .8rem; color: var(--suave); }
+.dica b { color: var(--texto); font-weight: 600; }
+
+/* ---------- Tela de sucesso ---------- */
+#telaSucesso { text-align: center; }
+.check {
+  width: 72px; height: 72px; margin: 0 auto 20px;
+  display: grid; place-items: center;
+  font-size: 2rem; color: #0b0f2a; background: var(--ok); border-radius: 50%;
+  animation: pop .6s cubic-bezier(.2, 1.6, .4, 1) both;
+}
+@keyframes pop { from { transform: scale(0); } }
+#sair { background: transparent; border: 1px solid var(--borda); }
+
+/* ---------- Tremida quando dá erro ---------- */
+.tremer { animation: tremer .4s; }
+@keyframes tremer {
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+/* Respeita quem prefere menos animação */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
